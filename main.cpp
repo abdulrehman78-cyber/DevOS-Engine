@@ -1,52 +1,27 @@
+#include "project.hpp"
+#include "registry.hpp"
 #include <iostream>
+
 using namespace std;
-class Project
-{
-    string title;
-    string language;
-    double version;
+int main(){
+    Project p1("miniShell", "C", 1.0);
+    Project p2("nobleFinance", "HTML , CSS ,JAVASCRIPT", 1.0);
 
-public:
-    Project()
-    {
-        title = "";
-        language = "";
-        version = 0;
-    }
-    Project(string title, string language, double version)
-    {
-        this->title = title;
-        this->language = language;
-        this->version = version;
-    }
-    // Getters
-    string getTitle()
-    {
-        return title;
-    }
-    string getLanguage()
-    {
-        return language;
-    }
-    double getVersion()
-    {
-        return version;
-    }
+    Registry publicHub;
+    Registry privateHub;
 
-    // Display Function
-    void display()
-    {
-        cout << "Project Name: " << getTitle() << endl
-             << "Written IN: " << getLanguage() << endl
-             << "Version: " << getVersion() << endl;
-    }
-    // Operator== Powers
-    bool operator==(const Project &other)
-    {
-        return (title == other.title);
-    }
-};
-int main()
-{
+    // Load up the private hub
+    privateHub.addProject(p1);
+    privateHub.addProject(p2);
+
+    cout << "\n=== PUBLIC HUB REGISTRY ===" << endl;
+    publicHub.viewRegistry();
+
+    cout << "\n=== PRIVATE HUB REGISTRY ===" << endl;
+    privateHub.viewRegistry();
+
+    cout << "\n=== SYSTEM WIDE TELEMETRY ===" << endl;
+    Registry::showGlobalStats();
+
     return 0;
 }
