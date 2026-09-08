@@ -4,24 +4,53 @@
 
 using namespace std;
 int main(){
-    Project p1("miniShell", "C", 1.0);
-    Project p2("nobleFinance", "HTML , CSS ,JAVASCRIPT", 1.0);
-
-    Registry publicHub;
-    Registry privateHub;
-
-    // Load up the private hub
-    privateHub.addProject(p1);
-    privateHub.addProject(p2);
-
-    cout << "\n=== PUBLIC HUB REGISTRY ===" << endl;
-    publicHub.viewRegistry();
-
-    cout << "\n=== PRIVATE HUB REGISTRY ===" << endl;
-    privateHub.viewRegistry();
-
-    cout << "\n=== SYSTEM WIDE TELEMETRY ===" << endl;
-    Registry::showGlobalStats();
+    Registry R;
+    int choice = -1;
+    
+    while (choice != 0){
+        cout<<"===========Menu To Protfolio=========="<<endl;
+        cout<<"Option 1. Register a new Project"<<endl
+        <<"Option 2. View Registered Repositories"<<endl
+        <<"Option 3. View Platform-Wide Metrics"<<endl
+        <<"Option 0. Exit"<<endl;
+        
+        cout<<"Enter Your choice = "<<endl;
+        cin>>choice;
+        
+        if(choice == 1)
+        {
+            cin.ignore();
+            string title;
+            cout<<"Enter Your Project Title: "<<endl;
+            getline(cin,title);
+            
+            
+            string language;
+            cout<<"Enter Language Used: "<<endl;
+            getline(cin,language);
+            
+            
+            double version;
+            cout<<"What's the Current version: "<<endl;
+            cin>>version;
+            cin.ignore();
+            Project p(title,language,version);
+            R.addProject(p);
+            cout<<endl;
+        }
+        else if(choice == 2) {
+            R.viewRegistry();
+            cout<<endl;
+        }
+        else if(choice == 3){
+            R.showGlobalStats();
+            cout<<endl;
+        }  
+        else if(choice == 0) 
+        {
+            return -1;
+        }
+    }
 
     return 0;
 }
