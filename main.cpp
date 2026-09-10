@@ -1,55 +1,93 @@
 #include "project.hpp"
 #include "registry.hpp"
+#include "utlis.hpp"
+#include "authgate.hpp"
 #include <iostream>
 
 using namespace std;
-int main(){
-    Registry R;
-    int choice = -1;
-    
-    while (choice != 0){
-        cout<<"===========Menu To Protfolio=========="<<endl;
-        cout<<"Option 1. Register a new Project"<<endl
-        <<"Option 2. View Registered Repositories"<<endl
-        <<"Option 3. View Platform-Wide Metrics"<<endl
-        <<"Option 0. Exit"<<endl;
-        
-        cout<<"Enter Your choice = "<<endl;
-        cin>>choice;
-        
-        if(choice == 1)
+int main()
+{
+    LOGIN_START:
+    //Taking the details
+    string username, password;
+    cout << "==== Admin Subsystem Setup =====" << endl;
+    cout << "Register Admin Username: " << endl;
+    getline(cin, username);
+    toLowerCaseInPlace(username);
+
+    cout << "Regsiter the password" << endl;
+    getline(cin, password);
+
+    User admin(username, password);
+    AuthGate gate(admin);
+
+    // login verification
+    cout << "\n=== DEVOS SECURE INTERFACE LOGIN ===" << endl;
+    cout << "Enter Username" << endl;
+    getline(cin, username);
+    toLowerCaseInPlace(username);
+
+    cout << "Enter Password" << endl;
+    getline(cin, password);
+
+    gate.attemptAccess(username, password);
+
+    if (gate.getStatus() == "System is: UNLOCKED!!")
+    {
+        Registry R;
+        int choice = -1;
+
+        while (choice != 0)
         {
-            cin.ignore();
-            string title;
-            cout<<"Enter Your Project Title: "<<endl;
-            getline(cin,title);
-            
-            
-            string language;
-            cout<<"Enter Language Used: "<<endl;
-            getline(cin,language);
-            
-            
-            double version;
-            cout<<"What's the Current version: "<<endl;
-            cin>>version;
-            cin.ignore();
-            Project p(title,language,version);
-            R.addProject(p);
-            cout<<endl;
+
+            cout << "===========Menu To Protfolio==========" << endl;
+            cout << "Option 1. Register a new Project" << endl
+                 << "Option 2. View Registered Repositories" << endl
+                 << "Option 3. View Platform-Wide Metrics" << endl
+                 << "Option 0. Exit" << endl;
+
+            cout << "Enter Your choice = " << endl;
+            cin >> choice;
+
+            if (choice == 1)
+            {
+                cin.ignore();
+                string title;
+                cout << "Enter Your Project Title: " << endl;
+                getline(cin, title);
+
+                string language;
+                cout << "Enter Language Used: " << endl;
+                getline(cin, language);
+
+                double version;
+                cout << "What's the Current version: " << endl;
+                cin >> version;
+                cin.ignore();
+                Project p(title, language, version);
+                R.addProject(p);
+                cout << endl;
+            }
+            else if (choice == 2)
+            {
+                R.viewRegistry();
+                cout << endl;
+            }
+            else if (choice == 3)
+            {
+                R.showGlobalStats();
+                cout << endl;
+            }
+            else if (choice == 0)
+            {
+                return -1;
+            }
         }
-        else if(choice == 2) {
-            R.viewRegistry();
-            cout<<endl;
-        }
-        else if(choice == 3){
-            R.showGlobalStats();
-            cout<<endl;
-        }  
-        else if(choice == 0) 
-        {
-            return -1;
-        }
+    }
+    else{
+        cout << "System remains locked. Terminal execution halted." << endl;
+        cout<< "Try Again Please"<<endl;
+        goto LOGIN_START;
     }
 
     return 0;

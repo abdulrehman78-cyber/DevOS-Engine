@@ -28,6 +28,7 @@ void Registry::addProject(Project &p){
         list = newArr;
     }
     list[projectCount] = p;
+    cout<<"Project " <<p.getTitle()<< " has been added successfully"<<endl;
     projectCount++;
     totalSystemProjects++;
 }
