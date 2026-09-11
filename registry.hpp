@@ -3,7 +3,7 @@
 #include "project.hpp"
 class Registry{
     private:
-    Project *list;
+    Project* *list;
     int capacity;
     int projectCount;
     static int totalSystemProjects; //It is like a global tracker
@@ -12,7 +12,7 @@ class Registry{
     Registry();
     ~Registry();
 
-    void addProject(Project &p);
+    void addProject(Project *p);
     void viewRegistry();
 
     static void showGlobalStats();

@@ -7,7 +7,7 @@
 using namespace std;
 int main()
 {
-    LOGIN_START:
+    
     //Taking the details
     string username, password;
     cout << "==== Admin Subsystem Setup =====" << endl;
@@ -21,6 +21,7 @@ int main()
     User admin(username, password);
     AuthGate gate(admin);
 
+    LOGIN_START:
     // login verification
     cout << "\n=== DEVOS SECURE INTERFACE LOGIN ===" << endl;
     cout << "Enter Username" << endl;
@@ -65,7 +66,7 @@ int main()
                 cin >> version;
                 cin.ignore();
                 Project p(title, language, version);
-                R.addProject(p);
+                R.addProject(&p);
                 cout << endl;
             }
             else if (choice == 2)
@@ -85,9 +86,14 @@ int main()
         }
     }
     else{
+        string c;
         cout << "System remains locked. Terminal execution halted." << endl;
-        cout<< "Try Again Please"<<endl;
+        cout<< "If you want to try again press R"<<endl;
+        cin>>c;
+        toLowerCaseInPlace(c);
+        if(c == "r")
         goto LOGIN_START;
+        else return -1;
     }
 
     return 0;

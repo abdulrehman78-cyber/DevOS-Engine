@@ -5,22 +5,22 @@ Registry::Registry()
 {
     capacity = 5;
     projectCount = 0;
-    list = new Project[capacity];
+    list = new Project*[capacity];
 }
 Registry::~Registry() {
     delete [] list;
 }
 
-void Registry::addProject(Project &p){
+void Registry::addProject(Project *p){
     for(int i = 0;i<projectCount;i++){
-        if(list[i] == p){
+        if(*list[i] == *p){
             cout<<"This Project Already exists!!!"<<endl;
             return;
         }
     }
     if(projectCount == capacity){
         capacity = capacity << 1;
-        Project *newArr = new Project [capacity];
+        Project* *newArr = new Project*[capacity];
         for(int i = 0;i<projectCount;i++){
             newArr[i] = list[i];
         }
@@ -28,14 +28,14 @@ void Registry::addProject(Project &p){
         list = newArr;
     }
     list[projectCount] = p;
-    cout<<"Project " <<p.getTitle()<< " has been added successfully"<<endl;
+    cout<<"Project [" <<p->getTitle()<< "] has been added successfully"<<endl;
     projectCount++;
     totalSystemProjects++;
 }
 
 void Registry::viewRegistry(){
     for(int i = 0;i< projectCount;i++){
-        list[i].display();
+        list[i]->display();
     }
 }
 
