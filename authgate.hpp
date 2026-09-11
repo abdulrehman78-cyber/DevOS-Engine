@@ -7,11 +7,11 @@
 #include <cctype>
 class AuthGate{
     private:
-    User activeUser;
+    User *activeUser;
     bool isLocked;
 
     public:
-    AuthGate(User &u);
+    AuthGate(User *u);
 
     void attemptAccess(string username,string enteredKey);
     string getStatus();

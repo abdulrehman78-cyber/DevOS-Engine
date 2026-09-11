@@ -19,7 +19,7 @@ int main()
     getline(cin, password);
 
     User admin(username, password);
-    AuthGate gate(admin);
+    AuthGate gate(&admin);
 
     LOGIN_START:
     // login verification
