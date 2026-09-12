@@ -2,6 +2,8 @@
 #define PROJECT_HPP
 #include <iostream>
 #include <string>
+#include <iomanip>
+#include <sstream>
 using namespace std;
 class Project
 {
@@ -12,6 +14,7 @@ class Project
 public:
     Project();
     Project(string title, string language, double version);
+    string serilize() const;
     // Getters
     string getTitle();
     string getLanguage();

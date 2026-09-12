@@ -1,6 +1,7 @@
 #ifndef REGISTRY_HPP
 #define REGISTRY_HPP
 #include "project.hpp"
+#include <fstream>
 class Registry{
     private:
     Project* *list;
@@ -14,6 +15,7 @@ class Registry{
 
     void addProject(Project *p);
     void viewRegistry();
+    void saveToFile(const  std::string &filename) const;
 
     static void showGlobalStats();
 

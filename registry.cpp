@@ -42,3 +42,20 @@ void Registry::viewRegistry(){
 void Registry::showGlobalStats(){
     cout<<"Total Projects:"<<totalSystemProjects<<endl;
 }
+
+void Registry::saveToFile(const string &filename) const{
+    ofstream outFile(filename); //opening a file
+
+    if(!outFile) {
+        cout<<"Database error: could not open the file for writing"<<endl;
+        return;
+    }
+
+    for(int i = 0;i<projectCount;i++){
+        outFile << list[i]->serilize()<<endl;
+    }
+
+    outFile.close();
+    cout << "Data Synchronization Complete. Database updated." << endl;
+
+}   

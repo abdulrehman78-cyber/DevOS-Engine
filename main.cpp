@@ -65,8 +65,8 @@ int main()
                 cout << "What's the Current version: " << endl;
                 cin >> version;
                 cin.ignore();
-                Project p(title, language, version);
-                R.addProject(&p);
+                Project *p = new Project(title, language, version);
+                R.addProject(p);
                 cout << endl;
             }
             else if (choice == 2)
@@ -81,6 +81,7 @@ int main()
             }
             else if (choice == 0)
             {
+                R.saveToFile("database.txt");
                 return -1;
             }
         }

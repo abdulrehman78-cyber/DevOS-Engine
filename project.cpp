@@ -25,14 +25,21 @@ double Project::getVersion()
     return version;
 }
 // Display Function
-    void Project::display()
-    {
-        cout << "Project Name: " << getTitle() << endl
-             << "Written IN: " << getLanguage() << endl
-             << "Version: " << getVersion() << endl;
-    }
-    // Operator== Powers
-    bool Project::operator==(const Project &other)
-    {
-        return (title == other.title);
-    }
+void Project::display()
+{
+    cout << "Project Name: " << getTitle() << endl
+         << "Written IN: " << getLanguage() << endl
+         << "Version: " << getVersion() << endl;
+}
+// Operator== Powers
+bool Project::operator==(const Project &other)
+{
+    return (title == other.title);
+}
+
+string Project::serilize() const
+{
+    ostringstream oss;
+    oss << title << "|" << language + "|" << fixed<<setprecision(1) << (version);
+    return oss.str();
+}

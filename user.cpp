@@ -1,5 +1,4 @@
 #include "user.hpp"
-
 User::User(){
     username = "";
     securityKey = "";
