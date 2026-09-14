@@ -2,7 +2,7 @@
 #include "registry.hpp"
 #include "utlis.hpp"
 #include "authgate.hpp"
-#include <iostream>
+#include <bits/stdc++.h>
 
 using namespace std;
 int main()
@@ -19,7 +19,7 @@ int main()
     getline(cin, password);
 
     User admin(username, password);
-    AuthGate gate(&admin);
+    AuthGate gate(admin);
 
     LOGIN_START:
     // login verification
@@ -32,7 +32,8 @@ int main()
     getline(cin, password);
 
     gate.attemptAccess(username, password);
-
+    cout<<"Welcome Dear "<<username<<endl;
+    
     if (gate.getStatus() == "System is: UNLOCKED!!")
     {
         Registry R;
@@ -65,9 +66,13 @@ int main()
                 cout << "What's the Current version: " << endl;
                 cin >> version;
                 cin.ignore();
-                Project *p = new Project(title, language, version);
+
+
+                Project p = Project(title, language, version);
                 R.addProject(p);
                 cout << endl;
+
+                
             }
             else if (choice == 2)
             {

@@ -1,9 +1,6 @@
 #ifndef USER_HPP
 #define USER_HPP
-
-#include <iostream>
-#include <string>
-#include <cctype>
+#include <bits/stdc++.h>
 using namespace std;
 class User{
     private:
@@ -11,13 +8,26 @@ class User{
     string securityKey;
 
     public:
-    User();
-    User(string username,string securityKey);
+    User(){
+        username = "";
+        securityKey ="";
+    }
+    User(string username,string securityKey){
+        this->username = username;
+        this->securityKey = securityKey;
+    }
 
 
-    string getUserName() const;
+    string getUserName() const{
+        return username;
+    }
 
-    bool validateKey(string enteredKey)  const;
+    bool validateKey(string enteredKey)  const{
+        if(this->securityKey == enteredKey){
+            return true;
+        }
+        return false;
+    }
 
 };
 #endif
