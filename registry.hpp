@@ -7,7 +7,7 @@ using namespace std;
 class Registry
 {
 private:
-    Project *list;
+    Project **list;
     int capacity;
     int projectCount;
     inline static int totalSystemProjects = 0; // It is like a global tracker
@@ -17,18 +17,22 @@ public:
     {
         capacity = 5;
         projectCount = 0;
-        list = new Project[capacity];
+        list = new Project *[capacity];
     }
     ~Registry()
     {
+        for (int i = 0; i < projectCount; i++)
+        {
+            delete list[i];
+        }
         delete[] list;
     }
 
-    void addProject(Project p)
+    void addProject(Project *p)
     {
         for (int i = 0; i < projectCount; i++)
         {
-            if (list[i] == p)
+            if (*list[i] == *p)
             {
                 cout << "This Project already exist!!" << endl;
                 return;
@@ -37,7 +41,7 @@ public:
         if (projectCount == capacity)
         {
             capacity = capacity * 2;
-            Project *newArr = new Project[capacity];
+            Project **newArr = new Project *[capacity];
             for (int i = 0; i < projectCount; i++)
             {
                 newArr[i] = list[i];
@@ -46,21 +50,19 @@ public:
             list = newArr;
         }
         list[projectCount] = p;
-        cout << "Project [" << p.getTitle() << "] has been added successfully" << endl;
+        cout << "Project [" << p->getTitle() << "] has been added successfully" << endl;
         projectCount++;
         totalSystemProjects++;
     }
 
-    
     void viewRegistry()
     {
         for (int i = 0; i < projectCount; i++)
         {
-            list[i].display();
+            list[i]->display();
             cout << endl;
         }
     }
-
 
     void saveToFile(const string &filename) const
     {
@@ -72,8 +74,8 @@ public:
         }
         for (int i = 0; i < projectCount; i++)
         {
-            outFile << list[i].serilize();
-            outFile<<endl; 
+            outFile << list[i]->serilize();
+            outFile << endl;
         }
         outFile.close();
         cout << "Data Synchronization Complete. Database updated." << endl;

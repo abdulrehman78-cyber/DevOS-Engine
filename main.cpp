@@ -68,7 +68,7 @@ int main()
                 cin.ignore();
 
 
-                Project p = Project(title, language, version);
+                Project *p = new Project(title, language, version);
                 R.addProject(p);
                 cout << endl;
 
